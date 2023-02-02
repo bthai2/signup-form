@@ -70,6 +70,7 @@ p {
 
 legend {
     padding: 24px 0;
+    padding-bottom: 32px;
 }
 
 form {
@@ -88,4 +89,29 @@ form {
 
 img {
     height: 100vh;
+}
+
+.row {
+    display: flex;
+    gap: 10%;
+    font-size: 22px;
+    font-weight: normal;
+}
+
+input[type='text'] {
+    font-size: 24px;
+    border-radius: 4px;
+    border-color: #E5E7EB;
+    border-style: solid;
+}
+
+input[type='text']:focus {
+    border-color: blue;
+    box-shadow: 0px 3px 15px lightgray;
+    outline: none;
+}
+
+.formElement {
+    display: flex;
+    flex-direction: column;
 }
