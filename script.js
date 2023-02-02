@@ -3,7 +3,17 @@ const fieldset = document.querySelector('fieldset');
 const form = document.querySelector('form');
 const btn = document.querySelector('button');
 
-btn.addEventListener('click', () => form.submit());
+var arr = [];
+
+function submitClicked(){
+    for(let i of arr){
+        if(i.value.length == 0){
+            i.required = true;
+        }
+    }
+}
+
+btn.addEventListener('click', submitClicked);
 
 function addInput(node, type, id, placeholder, labelName){
     let label = document.createElement('label');
@@ -14,6 +24,7 @@ function addInput(node, type, id, placeholder, labelName){
     input.setAttribute('type', type);
     input.setAttribute('id', id);
     input.setAttribute('placeholder', placeholder);
+    arr.push(input);
 
     node.appendChild(label);
     node.appendChild(input);
@@ -65,6 +76,31 @@ addInput(password, 'password', 'pass_info', '', 'PASSWORD');
 let confirmPass = document.createElement('div');
 confirmPass.classList.add('formElement');
 addInput(confirmPass, 'password', 'confirm_pass', '', 'CONFIRM PASSWORD');
+
+let message = document.createElement('div');
+message.setAttribute('visibility', 'hidden');
+message.textContent = "*Passwords do not match.";
+message.style.color = 'red';
+message.style.fontSize = '12px';
+
+let passTextBox = password.lastChild;
+let confirmTextBox = confirmPass.lastChild;
+
+confirmPass.lastChild.addEventListener('keyup', () => {
+
+    let pw = passTextBox.value;
+    let check = confirmTextBox.value;
+
+    if(pw != check){
+        message.setAttribute('visibility', 'visible');
+        confirmTextBox.setAttribute('isvalid', 'false');
+    } else {
+        message.setAttribute('visibility', 'hidden');
+        confirmTextBox.setAttribute('isvalid', 'true');
+    }
+});
+
+password.appendChild(message);
 
 passwordInfo.appendChild(password);
 passwordInfo.appendChild(confirmPass);
